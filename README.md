@@ -9,7 +9,7 @@ This repository contains the code which was used to build an app to aid institut
 * [Steps to Install](#steps)
 
 
-## <a name="requirements"></a>Requirements to run the demo ##
+## <a name="requirements"></a>Requirements to run the app ##
 
 * [Flutter SDK](https://flutter.dev/docs/get-started/install)
 * [Android studio](https://developer.android.com/studio/install) or [Visual studio code](https://code.visualstudio.com/download)
