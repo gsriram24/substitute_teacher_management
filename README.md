@@ -1,16 +1,30 @@
-# substitute_teacher_management
+# Substitue Teacher Management
 
-A new Flutter project.
+This repository contains the code which was used to build an app to aid institutional admins to allocate substitute faculties efficiently. 
 
-## Getting Started
+## Table of contents
 
-This project is a starting point for a Flutter application.
+* [Requirements to run the app](#requirements)
+* [Repository structure](#repository-structure)
+* [Steps to Install](#steps)
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## <a name="requirements"></a>Requirements to run the demo ##
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+* [Flutter SDK](https://flutter.dev/docs/get-started/install)
+* [Android studio](https://developer.android.com/studio/install) or [Visual studio code](https://code.visualstudio.com/download)
+* Install Flutter extension in Android studio or in [VS code](https://marketplace.visualstudio.com/items?itemName=Dart-Code.flutter)
+* Android Emulator/Device
+* [Firebase Project](https://console.firebase.google.com/)
+
+## <a name="repository-structure"></a>Repository structure ##
+
+This repository contains the entire code for the project. All screen routes can be found in ```lib/main.dart```. The screens and widgets can be found in ```lib/screens``` and ```lib/widgets/``` respectively.
+
+## <a name="steps"></a>Steps to install ##
+
+* Download or clone the files in repository. (```git clone https://github.com/sgcuber24/hackjaipur-submission.git```)
+* Initialise a Firebase and connect it with an android application as shown [here](https://firebase.google.com/docs/android/setup#add_the_sdk).
+* Install all packages. (```flutter pub get```)
+* Run the app. (```flutter run```)
+
