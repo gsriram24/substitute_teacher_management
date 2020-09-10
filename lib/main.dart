@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:substitute_teacher_management/screens/auth_screen.dart';
+import 'package:substitute_teacher_management/screens/faculty_screen.dart';
 import 'package:substitute_teacher_management/screens/home_screen.dart';
 
 void main() async {
@@ -39,6 +40,9 @@ class MyApp extends StatelessWidget {
           return AuthScreen();
         },
       ),
+      routes: {
+        FacultyScreen.routeName: (_) => FacultyScreen(),
+      },
     );
   }
 }

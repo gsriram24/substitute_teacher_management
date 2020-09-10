@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:substitute_teacher_management/widgets/home/drawer.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -7,7 +8,7 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Welcome Admin!'),
       ),
-      drawer: Drawer(),
+      drawer: AppDrawer(),
     );
   }
 }
