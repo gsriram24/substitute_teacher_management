@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/intl.dart';
-import 'package:substitute_teacher_management/screens/faculty_screen.dart';
+import 'package:substitute_teacher_management/screens/faculty_management_screen.dart';
 
 class AppDrawer extends StatelessWidget {
   final _auth = FirebaseAuth.instance;
@@ -31,7 +31,8 @@ class AppDrawer extends StatelessWidget {
             leading: Icon(Icons.person),
             title: Text('Faculties'),
             onTap: () {
-              Navigator.of(context).pushNamed(FacultyScreen.routeName);
+              Navigator.of(context)
+                  .pushNamed(FacultyManagementScreen.routeName);
             },
           ),
           Divider(),
