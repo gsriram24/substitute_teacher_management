@@ -22,7 +22,6 @@ class SubjectTile extends StatelessWidget {
   SubjectTile(this.subject, this.deleteSubject);
   @override
   Widget build(BuildContext context) {
-    print(subject);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(

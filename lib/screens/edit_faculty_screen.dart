@@ -14,19 +14,28 @@ class _EditFacultyScreenState extends State<EditFacultyScreen> {
     'fullName': '',
     'classes': [],
     'email': '',
-    'timeTable': {},
+    'timeTable': {
+      "Monday": List.filled(7, 'Free'),
+      "Tuesday": List.filled(7, 'Free'),
+      "Wednesday": List.filled(7, 'Free'),
+      "Thursday": List.filled(7, 'Free'),
+      "Friday": List.filled(7, 'Free'),
+      "Saturday": List.filled(4, 'Free')
+    },
   };
   List classes;
+  var timeTable;
   var _isInit = true;
   var _isLoading = false;
   void didChangeDependencies() {
     if (_isInit) {
       final faculty = ModalRoute.of(context).settings.arguments as Map;
-      print(faculty);
       if (faculty != null) {
         _initValues = faculty;
-        classes = _initValues['classes'];
       }
+      classes = _initValues['classes'];
+      timeTable = _initValues['timeTable'];
+      print(timeTable['Monday'].asMap());
     }
     _isInit = false;
     super.didChangeDependencies();
@@ -46,7 +55,6 @@ class _EditFacultyScreenState extends State<EditFacultyScreen> {
     String subjectInitials = subjectName.split(' ').map((word) {
       return word[0];
     }).join('');
-    print(subjectInitials);
     String id = semester + branch + section + subjectInitials;
     final newSubject = {
       'section': section,
@@ -76,6 +84,14 @@ class _EditFacultyScreenState extends State<EditFacultyScreen> {
 
   @override
   Widget build(BuildContext context) {
+    const days = [
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday'
+    ];
     return Scaffold(
       resizeToAvoidBottomPadding: true,
       appBar: AppBar(
@@ -191,13 +207,96 @@ class _EditFacultyScreenState extends State<EditFacultyScreen> {
                     Card(
                       child: Container(
                         height: 120,
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (ctx, i) {
-                            return SubjectTile(classes[i], deleteSubject);
-                          },
-                          itemCount: classes.length,
-                        ),
+                        child: classes == null
+                            ? Text('Empty')
+                            : ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (ctx, i) {
+                                  return SubjectTile(classes[i], deleteSubject);
+                                },
+                                itemCount: classes.length,
+                              ),
+                      ),
+                    ),
+                    Text('Time Table'),
+                    Card(
+                      child: Column(
+                        children: days
+                            .map(
+                              (day) => ExpansionTile(
+                                title: Text(day),
+                                children: timeTable[day]
+                                    .asMap()
+                                    .entries
+                                    .map<Widget>(
+                                      (hour) => Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 12.0,
+                                          vertical: 8.0,
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                              (hour.key + 1).toString(),
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 16,
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                  horizontal: 16.0,
+                                                  vertical: 8.0,
+                                                ),
+                                                child: DropdownButtonFormField(
+                                                  onChanged: (value) => {
+                                                    setState(
+                                                      () {
+                                                        timeTable[day]
+                                                            [hour.key] = value;
+                                                      },
+                                                    )
+                                                  },
+                                                  value: timeTable[day]
+                                                      [hour.key],
+                                                  icon: Icon(Icons.expand_more),
+                                                  items: (classes +
+                                                          [
+                                                            {'id': 'Free'}
+                                                          ])
+                                                      .map<
+                                                          DropdownMenuItem<
+                                                              String>>(
+                                                        (clss) =>
+                                                            DropdownMenuItem<
+                                                                String>(
+                                                          value: clss['id'],
+                                                          child: Text(
+                                                            clss['id'] == "Free"
+                                                                ? clss['id']
+                                                                : clss['semester'] +
+                                                                    clss[
+                                                                        'section'] +
+                                                                    ' - ' +
+                                                                    clss[
+                                                                        'subjectName'],
+                                                          ),
+                                                        ),
+                                                      )
+                                                      .toList(),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    )
+                                    .toList(),
+                              ),
+                            )
+                            .toList(),
                       ),
                     ),
                   ],
