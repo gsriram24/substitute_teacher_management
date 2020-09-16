@@ -140,7 +140,16 @@ class _EditFacultyScreenState extends State<EditFacultyScreen> {
                 child: ListView(
                   scrollDirection: Axis.vertical,
                   children: [
-                    Text('Basic Details'),
+                    Text(
+                      'Basic Details',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 16,
+                    ),
                     Card(
                       child: Padding(
                         padding: const EdgeInsets.all(16.0),
@@ -223,7 +232,13 @@ class _EditFacultyScreenState extends State<EditFacultyScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Subjects'),
+                        Text(
+                          'Subjects',
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                         FlatButton.icon(
                           icon: Icon(
                             Icons.add,
@@ -255,7 +270,19 @@ class _EditFacultyScreenState extends State<EditFacultyScreen> {
                               ),
                       ),
                     ),
-                    Text('Time Table'),
+                    SizedBox(
+                      height: 16,
+                    ),
+                    Text(
+                      'Time Table',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 16,
+                    ),
                     Card(
                       child: Column(
                         children: days

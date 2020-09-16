@@ -21,7 +21,7 @@ class AppDrawer extends StatelessWidget {
               DateFormat.MMMMEEEEd().format(DateTime.now()),
               style: TextStyle(
                 fontWeight: FontWeight.w500,
-                fontSize: 24,
+                fontSize: 22,
                 color: Colors.white,
               ),
             ),
