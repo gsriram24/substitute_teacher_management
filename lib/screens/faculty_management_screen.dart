@@ -26,6 +26,13 @@ class FacultyManagementScreen extends StatelessWidget {
             return Center(
               child: CircularProgressIndicator(),
             );
+          } else if (facultyData.length == 0) {
+            return Center(
+              child: Text(
+                'No Faculties added yet!',
+                style: Theme.of(context).textTheme.title,
+              ),
+            );
           }
           return Padding(
             padding: const EdgeInsets.all(8.0),
