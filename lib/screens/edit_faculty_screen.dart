@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:substitute_teacher_management/widgets/edit_faculty/new_subject_modal.dart';
 import 'package:substitute_teacher_management/widgets/edit_faculty/subject_tile.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class EditFacultyScreen extends StatefulWidget {
   static const routeName = '/edit-faculty';
@@ -10,6 +11,8 @@ class EditFacultyScreen extends StatefulWidget {
 }
 
 class _EditFacultyScreenState extends State<EditFacultyScreen> {
+  final _formKey = GlobalKey<FormState>();
+
   var _initValues = {
     'fullName': '',
     'classes': [],
@@ -27,9 +30,10 @@ class _EditFacultyScreenState extends State<EditFacultyScreen> {
   var timeTable;
   var _isInit = true;
   var _isLoading = false;
+  var faculty;
   void didChangeDependencies() {
     if (_isInit) {
-      final faculty = ModalRoute.of(context).settings.arguments as Map;
+      faculty = ModalRoute.of(context).settings.arguments as Map;
       if (faculty != null) {
         _initValues = faculty;
       }
@@ -39,6 +43,31 @@ class _EditFacultyScreenState extends State<EditFacultyScreen> {
     }
     _isInit = false;
     super.didChangeDependencies();
+  }
+
+  void _submitData() async {
+    final isValid = _formKey.currentState.validate();
+    if (isValid) {
+      setState(() {
+        _isLoading = true;
+      });
+      if (faculty == null) {
+        await FirebaseFirestore.instance
+            .collection('faculties')
+            .doc(_initValues['empId'])
+            .set(_initValues);
+        print('Faculty Added');
+      } else {
+        await FirebaseFirestore.instance
+            .collection('faculties')
+            .doc(_initValues['empId'])
+            .update(_initValues);
+      }
+      Navigator.of(context).pop();
+    }
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   void _startAddNewSubject(BuildContext ctx) {
@@ -97,7 +126,7 @@ class _EditFacultyScreenState extends State<EditFacultyScreen> {
       appBar: AppBar(
         title: Text('Edit Faculty'),
         actions: <Widget>[
-          IconButton(icon: Icon(Icons.save), onPressed: () {}),
+          IconButton(icon: Icon(Icons.save), onPressed: _submitData),
         ],
       ),
       body: _isLoading
@@ -107,6 +136,7 @@ class _EditFacultyScreenState extends State<EditFacultyScreen> {
           : Padding(
               padding: const EdgeInsets.all(16.0),
               child: Form(
+                key: _formKey,
                 child: ListView(
                   scrollDirection: Axis.vertical,
                   children: [
@@ -118,7 +148,10 @@ class _EditFacultyScreenState extends State<EditFacultyScreen> {
                           children: [
                             TextFormField(
                               initialValue: _initValues['empId'],
-                              onChanged: (value) {},
+                              onChanged: (value) {
+                                _initValues['empId'] = value;
+                              },
+                              enabled: faculty == null ? true : false,
                               key: ValueKey('empId'),
                               keyboardType: TextInputType.emailAddress,
                               decoration: InputDecoration(
@@ -138,7 +171,9 @@ class _EditFacultyScreenState extends State<EditFacultyScreen> {
                             ),
                             TextFormField(
                               initialValue: _initValues['fullName'],
-                              onChanged: (value) {},
+                              onChanged: (value) {
+                                _initValues['fullName'] = value;
+                              },
                               key: ValueKey('fullName'),
                               keyboardType: TextInputType.emailAddress,
                               decoration: InputDecoration(
@@ -158,7 +193,9 @@ class _EditFacultyScreenState extends State<EditFacultyScreen> {
                             ),
                             TextFormField(
                               initialValue: _initValues['email'],
-                              onChanged: (value) {},
+                              onChanged: (value) {
+                                _initValues['email'] = value;
+                              },
                               key: ValueKey('email'),
                               keyboardType: TextInputType.emailAddress,
                               decoration: InputDecoration(

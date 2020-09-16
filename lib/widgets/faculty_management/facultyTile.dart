@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:substitute_teacher_management/screens/edit_faculty_screen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FacultyTile extends StatelessWidget {
   final dynamic faculty;
@@ -36,7 +37,12 @@ class FacultyTile extends StatelessWidget {
               IconButton(
                 icon: Icon(Icons.delete),
                 onPressed: () async {
-                  try {} catch (error) {
+                  try {
+                    FirebaseFirestore.instance
+                        .collection('faculties')
+                        .doc(faculty['empId'])
+                        .delete();
+                  } catch (error) {
                     scaffold.showSnackBar(
                       SnackBar(
                         content: Text(
