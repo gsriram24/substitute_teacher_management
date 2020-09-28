@@ -79,12 +79,9 @@ class _EditFacultyScreenState extends State<EditFacultyScreen> {
     );
   }
 
-  void addSubject(
-      String branch, String semester, String section, String subjectName) {
-    String subjectInitials = subjectName.split(' ').map((word) {
-      return word[0];
-    }).join('');
-    String id = semester + branch + section + subjectInitials;
+  void addSubject(String branch, String semester, String section,
+      String subjectName, String abbr) {
+    String id = semester + branch + section + abbr;
     final newSubject = {
       'section': section,
       'semester': semester,
@@ -105,6 +102,10 @@ class _EditFacultyScreenState extends State<EditFacultyScreen> {
 
     setState(
       () {
+        timeTable.forEach((k, v) {
+          final i = v.indexWhere((x) => x == id);
+          if (i >= 0) timeTable[k][i] = 'Free';
+        });
         classes.removeAt(existingSubjectIndex);
         _initValues['classes'] = classes;
       },
@@ -264,7 +265,8 @@ class _EditFacultyScreenState extends State<EditFacultyScreen> {
                             : ListView.builder(
                                 scrollDirection: Axis.horizontal,
                                 itemBuilder: (ctx, i) {
-                                  return SubjectTile(classes[i], deleteSubject);
+                                  return SubjectTile(
+                                      classes[i], deleteSubject, i);
                                 },
                                 itemCount: classes.length,
                               ),

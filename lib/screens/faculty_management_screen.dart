@@ -21,12 +21,11 @@ class FacultyManagementScreen extends StatelessWidget {
       ),
       body: StreamBuilder(
         builder: (ctx, facultySnapshot) {
-          final facultyData = facultySnapshot.data.docs;
           if (facultySnapshot.connectionState == ConnectionState.waiting) {
             return Center(
               child: CircularProgressIndicator(),
             );
-          } else if (facultyData.length == 0) {
+          } else if (facultySnapshot.data.docs.length == 0) {
             return Center(
               child: Text(
                 'No Faculties added yet!',
@@ -34,6 +33,7 @@ class FacultyManagementScreen extends StatelessWidget {
               ),
             );
           }
+          final facultyData = facultySnapshot.data.docs;
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: ListView.builder(

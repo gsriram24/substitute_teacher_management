@@ -5,6 +5,7 @@ import 'package:substitute_teacher_management/screens/auth_screen.dart';
 import 'package:substitute_teacher_management/screens/edit_faculty_screen.dart';
 import 'package:substitute_teacher_management/screens/faculty_management_screen.dart';
 import 'package:substitute_teacher_management/screens/home_screen.dart';
+import 'package:substitute_teacher_management/screens/substitute_faculty_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,6 +45,7 @@ class MyApp extends StatelessWidget {
       routes: {
         FacultyManagementScreen.routeName: (_) => FacultyManagementScreen(),
         EditFacultyScreen.routeName: (_) => EditFacultyScreen(),
+        SubstituteFacultyScreen.routeName: (_) => SubstituteFacultyScreen(),
       },
     );
   }

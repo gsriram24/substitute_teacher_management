@@ -10,6 +10,7 @@ class NewSubjectModal extends StatefulWidget {
 class _NewSubjectModalState extends State<NewSubjectModal> {
   var _formKey = GlobalKey<FormState>();
   var subjectName;
+  var abbr;
   var semester = '1';
   var branch = 'CSE';
   var section = 'A';
@@ -19,7 +20,7 @@ class _NewSubjectModalState extends State<NewSubjectModal> {
     FocusScope.of(context).unfocus();
 
     if (isValid) {
-      widget.addSubject(branch, semester, section, subjectName);
+      widget.addSubject(branch, semester, section, subjectName, abbr);
       Navigator.of(context).pop();
     }
   }
@@ -70,7 +71,7 @@ class _NewSubjectModalState extends State<NewSubjectModal> {
                   ],
                 ),
                 SizedBox(
-                  height: 30.0,
+                  height: 25.0,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -141,7 +142,7 @@ class _NewSubjectModalState extends State<NewSubjectModal> {
                   ],
                 ),
                 SizedBox(
-                  height: 30.0,
+                  height: 25.0,
                 ),
                 TextFormField(
                   onChanged: (value) {
@@ -161,7 +162,27 @@ class _NewSubjectModalState extends State<NewSubjectModal> {
                   },
                 ),
                 SizedBox(
-                  height: 30.0,
+                  height: 25.0,
+                ),
+                TextFormField(
+                  onChanged: (value) {
+                    abbr = value;
+                  },
+                  key: ValueKey('abbr'),
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Abbreviation',
+                  ),
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'Please Enter the Abbreviation!';
+                    }
+                    return null;
+                  },
+                ),
+                SizedBox(
+                  height: 25.0,
                 ),
                 RaisedButton(
                   child: Text(

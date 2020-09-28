@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 
-T getRandomColor<T>() {
-  List list = [
+class SubjectTile extends StatelessWidget {
+  final void Function(String id) deleteSubject;
+  final index;
+  final subject;
+  List colorList = [
     Colors.blue,
     Colors.purple,
     Colors.deepPurple,
@@ -10,23 +13,15 @@ T getRandomColor<T>() {
     Colors.green,
     Colors.red,
   ];
-  final random = new Random();
-  var i = random.nextInt(list.length);
-  return list[i];
-}
-
-class SubjectTile extends StatelessWidget {
-  final void Function(String id) deleteSubject;
-
-  final subject;
-  SubjectTile(this.subject, this.deleteSubject);
+  SubjectTile(this.subject, this.deleteSubject, this.index);
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
         decoration: BoxDecoration(
-            color: getRandomColor(), borderRadius: BorderRadius.circular(6)),
+            color: colorList[index % colorList.length],
+            borderRadius: BorderRadius.circular(6)),
         width: 150,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
