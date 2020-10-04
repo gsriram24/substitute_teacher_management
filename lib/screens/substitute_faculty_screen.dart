@@ -17,6 +17,7 @@ class _SubstituteFacultyScreenState extends State<SubstituteFacultyScreen> {
   var _isInit = true;
   var _isLoading = false;
   var day = DateFormat.EEEE().format(DateTime.now());
+
   List allFaculties;
   Future<List> getFaculties() async {
     QuerySnapshot faculties =
@@ -74,6 +75,7 @@ class _SubstituteFacultyScreenState extends State<SubstituteFacultyScreen> {
   @override
   void didChangeDependencies() async {
     if (_isInit) {
+      day = day == "Sunday" ? "Monday" : day;
       currentFaculty = ModalRoute.of(context).settings.arguments as Map;
       allFaculties = await getFaculties();
     }
