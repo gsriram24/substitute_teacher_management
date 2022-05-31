@@ -23,7 +23,7 @@ This repository contains the entire code for the project. All screen routes can 
 
 ## <a name="steps"></a>Steps to install ##
 
-* Download or clone the files in repository. (```git clone https://github.com/sgcuber24/hackjaipur-submission.git```)
+* Download or clone the files in repository. (```git clone https://github.com/sgcuber24/substitute_teacher_management.git```)
 * Initialise a Firebase and connect it with an android application as shown [here](https://firebase.google.com/docs/android/setup#add_the_sdk).
 * Install all packages. (```flutter pub get```)
 * Run the app. (```flutter run```)
